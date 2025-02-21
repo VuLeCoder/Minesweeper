@@ -3,7 +3,7 @@ package tryAgainMineSweeper;
 import java.util.*;
 
 public class LogicGame {
-	public static int ROW, COL, mine, diff = 3;
+	public static int ROW, COL, mine, diff = 0;
 
 	public static int[][] board;
 	public static boolean[][] visited;
@@ -110,6 +110,7 @@ public class LogicGame {
 					digAllZeroMine(nx, ny);
 				} else {
 					BoardGame.colorCell(nx, ny);
+					BoardGame.isEndGame(board[nx][ny] == -1, nx, ny);
 				}
 			}
 		}
@@ -120,7 +121,7 @@ public class LogicGame {
 		switch (diff) {
 	        case 0 ->  { ROW = 8;  COL = 10; mine = 10; }
 	        case 1 ->  { ROW = 10; COL = 15; mine = 30; }
-	        default -> { ROW = 15; COL = 20; mine = 45; }
+	        default -> { ROW = 15; COL = 20; mine = 100; }
 		}
 
 		// Tạo bảng
