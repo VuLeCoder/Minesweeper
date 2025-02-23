@@ -2,7 +2,7 @@ package org.sample.mavensample;
 
 import java.util.*;
 
-public class RandomSolvableGame {
+public class RandomSolvableGameGPT {
     private static final int MINE = -1;
     private static int N, M; // Kích thước bảng
     private static int MINES; // Số mìn

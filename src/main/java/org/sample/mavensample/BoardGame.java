@@ -87,11 +87,11 @@ public class BoardGame {
 
 					// Lần đầu nhấn sẽ là 1 ô mà xung quanh đều ko có bom
 					if (isFirstClick) {
-						while (LogicGame.board[i][j] != 0) {
+						while (MyRandomSolvable.check(i, j)) {
 							LogicGame.createGame();
 						}
 						isFirstClick = false;
-//						LogicGame.printBoard();
+						LogicGame.printBoard();
 					}
 
 					if (LogicGame.board[i][j] == 0) {
@@ -131,7 +131,7 @@ public class BoardGame {
 	// Tô màu cho ô chưa chắc an toàn
 	public static void colorCell(int x, int y) {
 
-		if (buttons[x][y].getText().equals("🚩") || LogicGame.visited[x][y]) {
+		if (buttons[x][y].getText().equals("🚩") || buttons[x][y].getText().equals("X") || LogicGame.visited[x][y]) {
 			return;
 		}
 		LogicGame.visited[x][y] = true;
@@ -156,6 +156,7 @@ public class BoardGame {
 //		System.out.println(numberSafe);
 		
 		if (LogicGame.board[x][y] == 0) {
+			buttons[x][y].setText("");
 			return;
 		}
 		

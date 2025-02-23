@@ -77,8 +77,8 @@ public class LogicGame {
 	private static void createAttribute() {
 		switch (diff) {
 	        case 0 :  { ROW = 8;  COL = 10; mine = 10; }
-	        case 1 :  { ROW = 10; COL = 15; mine = 24; }
-	        default : { ROW = 15; COL = 20; mine = 70; }
+	        case 1 :  { ROW = 12; COL = 16; mine = 30; }
+	        default : { ROW = 18; COL = 21; mine = 80; }
 		}
 
 		// Tạo bảng
@@ -94,19 +94,19 @@ public class LogicGame {
 	
 	public static void createGame() {
 		createAttribute();
-//		RandomGame.play();         // Mìn ngẫu nhiên, có thể phải đoán bừa
-		RandomSolvableGame.play(); // Mìn ngẫu nhiên, có thể giải ko cần đoán
+		RandomGame.play();         // Mìn ngẫu nhiên, có thể phải đoán bừa
+//		RandomSolvableGameGPT.play(); // Mìn ngẫu nhiên, có thể giải ko cần đoán
 	}
 	
-//	public static void printBoard() {
-//		for(int i=0; i<ROW; ++i) {
-//			for(int j=0; j<COL; ++j) {
-//				if(board[i][j] == -1) System.out.print("x ");
-//				else System.out.print(board[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
-//	}
+	public static void printBoard() {
+		for(int i=0; i<ROW; ++i) {
+			for(int j=0; j<COL; ++j) {
+				if(board[i][j] == -1) System.out.print("x ");
+				else System.out.print(board[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
 	
 //	public static void main(String []args) {
 //		createGame();
