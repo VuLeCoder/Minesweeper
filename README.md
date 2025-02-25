@@ -13,7 +13,7 @@
 
   Sử dung **mvn** từ [Apache Maven](https://maven.apache.org/download.cgi)
 
-    mvn clean install
+    mvn clean package
     
     java -jar target/App.jar
   
