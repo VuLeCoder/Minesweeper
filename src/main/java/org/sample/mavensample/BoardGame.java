@@ -10,16 +10,18 @@ public class BoardGame {
 	private static JButton[][] buttons;
 	private static boolean isFirstClick = true;
 	private static int numberSafe; // Số ô không có mìn chưa bị đào
+	public static boolean isFlag = false;
 
-	// Ma trận tò chơi
+	// Ma trận trò chơi
 	public static JPanel game;
 
 	// Màu nền
 	private static Color hoverColor = Color.gray;
-	private static Color defaultColor_0 = new Color(162, 209, 73);
-	private static Color clickedColor_0 = new Color(229, 194, 159);
-	private static Color defaultColor_1 = new Color(135, 175, 58);
-	private static Color clickedColor_1 = new Color(215, 184, 153);
+	private static Color defaultColor_0 = new Color(162, 209, 73);  // Đậm
+	private static Color clickedColor_0 = new Color(229, 194, 159); //
+	
+	private static Color defaultColor_1 = new Color(135, 175, 58);  // Nhạt
+	private static Color clickedColor_1 = new Color(215, 184, 153); // Nhạt
 
 	// Màu số
 	private static Color[] numberColor = new Color[4];
@@ -35,14 +37,16 @@ public class BoardGame {
 		// Khởi tạo nút
 		JButton button = new JButton(" ");
 		button.setMargin(new Insets(0, 0, 0, 0)); // Thêm không gian cho nội dung
-		button.setFocusable(false); // Tắt hiệu ứng gì đó
+		button.setFocusPainted(false);
 		button.setBorderPainted(false); // Tắt viền
 		button.setBackground(((i + j) % 2 == 0) ? defaultColor_1 : defaultColor_0); // Màu nền
 
 		// Hiệu ứng hover
 		button.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
-
+				
+				button.requestFocus();
+				
 				if (LogicGame.visited[i][j]) {
 					return;
 				}
@@ -53,7 +57,7 @@ public class BoardGame {
 			}
 
 			public void mouseExited(MouseEvent e) {
-
+				
 				if (LogicGame.visited[i][j]) {
 					return;
 				}
@@ -65,13 +69,16 @@ public class BoardGame {
 
 			// Nhấp chuột
 			public void mousePressed(MouseEvent e) {
-
+				
+//				App.flagButton.requestFocus();
+				
 				if (LogicGame.visited[i][j]) {
 					return;
 				}
 
 				// Nếu là chuột phải đổi thành cờ
-				if (e.getButton() == MouseEvent.BUTTON3) {
+//				if (e.getButton() == MouseEvent.BUTTON3) {
+				if (isFlag) {
 					if (button.getText().equals("🚩")) {
 						button.setText(" ");
 					} else {
@@ -103,6 +110,32 @@ public class BoardGame {
 				}
 			}
 		});
+
+		button.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println("xx");
+				if (e.getKeyCode() == KeyEvent.VK_F) {
+					System.out.println("xx");
+					if (isFlag) {
+						App.flagButton.setText(App.dig);
+						isFlag = false;
+					} else {
+						App.flagButton.setText(App.flag);
+						isFlag = true;
+					}
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+		});
+
 		return button;
 	}
 
@@ -115,7 +148,7 @@ public class BoardGame {
 		buttons = new JButton[N][M];
 
 		numberSafe = N * M - LogicGame.mine;
-		
+
 		game = new JPanel();
 		game.setPreferredSize(new Dimension(M * cellSize - 1, N * cellSize));
 		game.setLayout(new GridLayout(N, M));
@@ -149,17 +182,17 @@ public class BoardGame {
 
 	// Tô màu các ô không phải mìn
 	public static void colorSafeCell(int x, int y) {
-		
+
 		LogicGame.visited[x][y] = true;
 		buttons[x][y].setBackground((x + y) % 2 == 0 ? clickedColor_1 : clickedColor_0);
 		numberSafe--;
 //		System.out.println(numberSafe);
-		
+
 		if (LogicGame.board[x][y] == 0) {
 			buttons[x][y].setText("");
 			return;
 		}
-		
+
 		buttons[x][y].setFont(new Font("Arial Black", Font.BOLD, fontSize));
 		buttons[x][y].setText(LogicGame.board[x][y] + "");
 		buttons[x][y].setForeground(numberColor[(LogicGame.board[x][y] - 1) % 4]);
@@ -169,10 +202,14 @@ public class BoardGame {
 			boolean isDoubleClicked = false;
 
 			public void mouseClicked(MouseEvent e) {
-				if (!isDoubleClicked && e.getClickCount() == 2) {
+				if (!isDoubleClicked && e.getClickCount() == 2 && !isFlag) {
 //					isDoubleClicked = true;
 					LogicGame.digAllSquareAround(x, y);
 				}
+			}
+			
+			public void mouseEntered(MouseEvent e) {
+				buttons[x][y].requestFocus();
 			}
 		});
 	}
@@ -188,12 +225,12 @@ public class BoardGame {
 			// Hiện tất cả các quả mìn
 			for (int i = 0; i < N; ++i) {
 				for (int j = 0; j < M; ++j) {
-					if(buttons[i][j].getText().equals("🚩") && LogicGame.board[i][j] != -1) {
+					if (buttons[i][j].getText().equals("🚩") && LogicGame.board[i][j] != -1) {
 //						buttons[i][j].setEnabled(false);
 						buttons[i][j].setText("X");
 						buttons[i][j].setFont(new Font("Arial", Font.PLAIN, 30));
 					}
-					
+
 					if (LogicGame.board[i][j] == -1) {
 //						buttons[i][j].setText("");
 						colorCell(i, j);

@@ -1,9 +1,10 @@
 package org.sample.mavensample;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class LogicGame {
-	public static int ROW, COL, mine, diff = 2;
+	public static int ROW, COL, mine, diff = 1;
 
 	public static int[][] board;
 	public static boolean[][] visited;
@@ -75,10 +76,11 @@ public class LogicGame {
 	}
 	
 	private static void createAttribute() {
+		System.out.println(diff);
 		switch (diff) {
-	        case 0 :  { ROW = 8;  COL = 10; mine = 10; }
-	        case 1 :  { ROW = 12; COL = 16; mine = 30; }
-	        default : { ROW = 18; COL = 21; mine = 80; }
+	        case 0 :  { ROW = 8;  COL = 10; mine = 10; break;}
+	        case 1 :  { ROW = 12; COL = 16; mine = 30; break;}
+	        default : { ROW = 18; COL = 21; mine = 80; break;}
 		}
 
 		// Tạo bảng
