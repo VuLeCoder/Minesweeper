@@ -1,8 +1,7 @@
 package org.game.Minesweeper;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -116,8 +115,35 @@ public class Taskbar {
         String[] difficulty = {"Easy", "Medium", "Hard"};
         JComboBox<String> diffBox = new JComboBox<>(difficulty);
         diffBox.setPreferredSize(new Dimension(DROP_DOWN_WITDH, HEIGHT));
+        diffBox.setSelectedIndex(Global.diff);
+        diffBox.addItemListener(new ItemListener() {
+        	@Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getSource() == diffBox) {
+                	if (diffBox.getSelectedItem().equals("Easy")) {
+                		if(Global.diff == 0) {
+                			return;
+                		}
+                		game.setGame(0);
+                		
+                	} else if (diffBox.getSelectedItem().equals("Medium")) {
+                		if(Global.diff == 1) {
+                			return;
+                		}
+                		game.setGame(1);
+                		
+                	} else {
+                		if(Global.diff == 2) {
+                			return;
+                		}
+                		game.setGame(2);
+                	}
+                    
+                }
+            }
+        });
+        
         panel.add(diffBox);
-
         return panel;
     }
 

@@ -15,9 +15,13 @@ public class Board_2_0 extends Board {
             super.checkEndGame(x, y);
             
             // Gọi game show giao diện thua
-        } else {
+            game.loseGame();
+        }
+		
+		if (logic.isSafe()) {
             super.checkEndGame(x, y);
             // Gọi game show giao diện thắng
+            game.winGame();
         }
 	}
 

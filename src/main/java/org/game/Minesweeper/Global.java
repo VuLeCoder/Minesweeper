@@ -9,6 +9,7 @@ public class Global {
 	
 	public static boolean isFlag = false;
 	public static boolean isFirstClick = true;
+	public static int diff = 1;
 	
     public static final int[] dx = { -1, -1, -1, 0, 0, 1, 1, 1 };
     public static final int[] dy = { -1, 0, 1, -1, 1, -1, 0, 1 };
