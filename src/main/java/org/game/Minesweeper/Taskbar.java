@@ -69,10 +69,8 @@ public class Taskbar {
         
         statusPointer.addMouseListener(new MouseAdapter() {
         	public void mousePressed(MouseEvent e) {
-        		if (Global.x == 0) game.setGame(0);
-        		else game.setGame(1);
-        		Global.x++;
-        		Global.x %= 2;
+        		Global.isFlag = !Global.isFlag;
+        		changeStatus();
         	}
         });
     }

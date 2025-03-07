@@ -75,7 +75,15 @@ public class Square {
 
                 if (nx >= 0 && ny >= 0 && nx < Global.getRow() && ny < Global.getCol() && !board.getSquare(nx, ny).isColored()) {
                     queue.add(new Global.Pair<>(nx, ny));
-                    board.getSquare(nx, ny).setWrongFlag();
+                    
+                    if(board.getSquare(nx, ny).getText().equals(Global.flag)) {
+                    	board.getSquare(nx, ny).setWrongFlag();
+                    	
+                    	board.setNumberFlag(board.getNumberFlag() - 1);
+                        bar.changeNumberFlag(Global.getMines() - board.getNumberFlag());
+                    }
+                    
+                    
                 }
             }
         }
@@ -134,6 +142,8 @@ public class Square {
                 if (Global.isFlag) {
                     toggleFlag();
                 } else {
+                	if(button.getText().equals(Global.flag)) return;
+                	
                     if (Global.isFirstClick) {
                     	while(!board.logic.isSolvable(x, y)) {
                     		board.logic.createGame();
@@ -190,8 +200,6 @@ public class Square {
     public void setWrongFlag() {
     	button.setText("X");
 		button.setFont(new Font("Arial", Font.PLAIN, 30));
-		board.setNumberFlag(board.getNumberFlag() - 1);
-        bar.changeNumberFlag(Global.getMines() - board.getNumberFlag());
 	}
 
     public void color() {
