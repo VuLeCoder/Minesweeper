@@ -82,8 +82,6 @@ public class Square {
                     	board.setNumberFlag(board.getNumberFlag() - 1);
                         bar.changeNumberFlag(Global.getMines() - board.getNumberFlag());
                     }
-                    
-                    
                 }
             }
         }
