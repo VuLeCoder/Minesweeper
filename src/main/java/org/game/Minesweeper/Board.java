@@ -6,10 +6,10 @@ import javax.swing.JPanel;
 
 public class Board {
 	final Logic logic;
-	private Square[][] board;
+	private final Square[][] board;
 
 	private int numberFlag = 0;
-	private JPanel panel;
+	private final JPanel panel;
 
 	public Board(Taskbar bar) {
 		logic = new Logic();
@@ -75,13 +75,11 @@ public class Board {
 		}
 		
 		if (logic.getValueCell(x, y) == -1) {
-			System.out.println("You Lose");
 			showAllMine();
 			endGame();
 		}
 
 		if (logic.isSafe()) {
-			System.out.println("You Win");
 			endGame();
 		}
 	}

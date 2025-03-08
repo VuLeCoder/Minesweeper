@@ -1,24 +1,25 @@
 package org.game.Minesweeper;
 
-import java.awt.BorderLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Game {
 	
-	private JFrame f;
+	private final JFrame f;
 	
-	public Game(int diff) {
+	public Game() {
 		f = new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setResizable(false);
 		f.setLayout(new BorderLayout());
-		
-		setGame(diff);
 	}
 	
+	public JFrame getMainGame() {
+		return f;
+	}
+
 	public void setGame(int diff) {
 		setAttribute(diff);
 		Global.diff = diff;
@@ -44,21 +45,41 @@ public class Game {
 		}
 	}
 
-	private JFrame showMessage(String state, String image) {
-		JFrame frame = new JFrame();
-
-		frame.setTitle(state);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setLocationRelativeTo(null); // Căn giữa màn hình
+	private void showMessage(String state, String image) {
+//		JDialog message = new JDialog(f, state, true);
+		JDialog message = new JDialog(f, state);
+        message.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        message.setLayout(new BorderLayout());
 
         // Thêm hình ảnh vào JLabel
         ImageIcon imageIcon = new ImageIcon(image);
         JLabel label = new JLabel(imageIcon);
-        frame.add(label);
+        message.add(label, BorderLayout.CENTER);
+        
+        JButton tryAgain = new JButton();
+        tryAgain.setPreferredSize(new Dimension(325, 50));
+        tryAgain.setBackground(new Color(74, 117, 44));
+        tryAgain.setFocusPainted(false);
+        tryAgain.setBorderPainted(false);
+        tryAgain.setText(state.equals("You win") ? "Play Again" : "Try Again");
+        tryAgain.setForeground(Color.white);
+        tryAgain.setFont(new Font(Global.numberFont, Font.PLAIN, Global.fontSize));
+        
+        tryAgain.addMouseListener(new MouseAdapter() {
+        	public void mousePressed(MouseEvent e) {
+        		message.dispose();
+        		setGame(Global.diff);
+        	}
+        });
+        message.add(tryAgain, BorderLayout.SOUTH);
 
-		frame.pack();
-        frame.setVisible(true);
-		return frame;
+		message.pack();
+		
+		int x = f.getX() + (f.getWidth() - message.getWidth()) / 2;
+        int y = f.getY() + (f.getHeight() - message.getHeight()) / 2;
+        message.setLocation(x, y);
+		
+        message.setVisible(true);
 	}
 
 	public void winGame() {

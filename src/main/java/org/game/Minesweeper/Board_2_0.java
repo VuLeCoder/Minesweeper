@@ -2,7 +2,7 @@ package org.game.Minesweeper;
 
 public class Board_2_0 extends Board {
 	
-	private Game game;
+	private final Game game;
 
 	public Board_2_0(Taskbar bar, Game game) {
 		super(bar);
@@ -11,16 +11,17 @@ public class Board_2_0 extends Board {
 	
 	@Override
 	public void checkEndGame(int x, int y) {
+		if(super.getSquare(x, y).getText().equals(Global.flag)) {
+			return;
+		}
+		
+		super.checkEndGame(x, y);
+		
 		if (logic.getValueCell(x, y) == -1) {
-            super.checkEndGame(x, y);
-            
-            // Gọi game show giao diện thua
             game.loseGame();
         }
 		
 		if (logic.isSafe()) {
-            super.checkEndGame(x, y);
-            // Gọi game show giao diện thắng
             game.winGame();
         }
 	}
