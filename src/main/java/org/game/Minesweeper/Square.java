@@ -22,7 +22,7 @@ public class Square {
         new Color(123, 31, 162)
     };
     
-    private JButton button;
+    private final JButton button;
     private boolean isColored = false;
     private final int x, y;
 
