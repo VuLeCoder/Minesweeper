@@ -14,6 +14,12 @@ public class Taskbar {
     private final int PADDING = (HEIGHT_BAR - HEIGHT) / 2;
     private final int FONT_SIZE = Global.fontSize + 8;
     private final int DROP_DOWN_WITDH = 110;
+    private final JTextArea HELP = new JTextArea(
+    		"\n" + 
+            " Ô trên trái để lựa chọn độ khó.\n \n" +
+            " Nút ở giữa là trạng thái chuột, trạng thái chuột gồm đặt cờ và đào.\n \n" +
+            " Thay đổi trạng thái bằng cách nhấp vào nút đó hoặc nhấn phím F.\n"
+        );
     
     private final JPanel bar;
     private JButton statusPointer;
@@ -24,6 +30,7 @@ public class Taskbar {
     	
         bar = new JPanel();
         statusPointer = new JButton();
+        createHelp();
         createBar();
     }
 
@@ -34,7 +41,17 @@ public class Taskbar {
 	public JLabel getNum() {
 		return num;
 	}
-
+	
+	private void createHelp() {
+//		HELP.setPreferredSize(new Dimension(500, 100));
+		HELP.setEditable(false);
+	    HELP.setFocusable(false);
+	    HELP.setFont(new Font("Arial", Font.BOLD, 14));
+        HELP.setBackground(new Color(240, 240, 240)); // Màu nền sáng
+        HELP.setForeground(new Color(50, 50, 50)); // Màu chữ đậm hơn
+//		HELP.setWrapStyleWord(true);
+//		HELP.setLineWrap(true);
+	}
 
 	private void createBar() {
         bar.setPreferredSize(new Dimension(Global.getCol() * Global.squareSize, HEIGHT_BAR));
@@ -159,6 +176,22 @@ public class Taskbar {
         helpButton.setBorderPainted(false);
         helpButton.setBackground(new Color(252, 222, 190));
         helpButton.setText("❓");
+        
+        helpButton.addMouseListener(new MouseAdapter() {
+        	public void mousePressed(MouseEvent e) {
+        		JDialog help = new JDialog(game.getMainGame(), "Help", true);
+        		help.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        		help.setResizable(false);
+        		help.add(HELP);
+        		help.pack();
+        		
+        		int x = game.getMainGame().getX() + (game.getMainGame().getWidth() - help.getWidth()) / 2;
+                int y = game.getMainGame().getY() + (game.getMainGame().getHeight() - help.getHeight()) / 2;
+                help.setLocation(x, y);
+                
+                help.setVisible(true);
+        	}
+        });
         
         panel.add(helpButton);
         return panel;
