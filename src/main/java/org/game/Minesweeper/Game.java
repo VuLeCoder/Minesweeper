@@ -83,11 +83,12 @@ public class Game {
 	}
 
 	public void winGame() {
-		showMessage("You win", "D:\\CODE_Java\\CODE\\Minesweeper\\src\\image\\win.png");
+		showMessage("You win", "src\\image\\win.png");
 	}
 	
+	
 	public void loseGame() {
-		showMessage("You lose", "D:\\CODE_Java\\CODE\\Minesweeper\\src\\image\\lose.png");
+		showMessage("You lose", "src\\image\\lose.png");
 	}
 
 }
