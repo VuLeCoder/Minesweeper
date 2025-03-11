@@ -107,7 +107,7 @@ public class Square {
     private void addDoubleClickEvent() {
     	button.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2 && !Global.isFlag) {
+				if (e.getClickCount() == 2) {
 					digAllSquareAround(x, y);
 				}
 			}

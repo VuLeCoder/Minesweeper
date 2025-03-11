@@ -2,7 +2,7 @@ package org.game.Minesweeper;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import javax.swing.JPanel;
+ import javax.swing.JPanel;
 
 public class Board {
 	final Logic logic;
