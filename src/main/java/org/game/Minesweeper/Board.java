@@ -70,7 +70,7 @@ public class Board {
 	}
 
 	public void checkEndGame(int x, int y) {
-		if(board[x][y].getButton().getText().equals("🚩")) {
+		if(board[x][y].getButton().getText().equals(Global.flag)) {
 			return;
 		}
 		

@@ -181,12 +181,12 @@ public class Square {
     }
     
     private void toggleFlag() {
-        if (button.getText().equals("🚩")) {
+        if (button.getText().equals(Global.flag)) {
             button.setText(" ");
             board.setNumberFlag(board.getNumberFlag() - 1);
             bar.changeNumberFlag(Global.getMines() - board.getNumberFlag());
         } else {
-            button.setText("🚩");
+            button.setText(Global.flag);
             button.setForeground(Color.RED);
             button.setFont(new Font(Global.iconFont, Font.BOLD, Global.fontSize));
             

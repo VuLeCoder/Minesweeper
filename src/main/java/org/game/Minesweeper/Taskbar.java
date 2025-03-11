@@ -94,7 +94,7 @@ public class Taskbar {
         panel.setBackground(BACKGROUND_COLOR);
         panel.setBackground(Color.black);
 
-        JLabel flagLabel = new JLabel("🚩", SwingConstants.CENTER);
+        JLabel flagLabel = new JLabel(Global.flag, SwingConstants.CENTER);
         flagLabel.setPreferredSize(new Dimension(HEIGHT, HEIGHT));
         flagLabel.setBorder(new EmptyBorder(PADDING, 0, 0, 0));
         flagLabel.setFont(new Font(Global.iconFont, Font.BOLD, FONT_SIZE));
