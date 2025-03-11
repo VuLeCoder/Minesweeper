@@ -49,8 +49,6 @@ public class Taskbar {
 	    HELP.setFont(new Font("Arial", Font.BOLD, 14));
         HELP.setBackground(new Color(240, 240, 240)); // Màu nền sáng
         HELP.setForeground(new Color(50, 50, 50)); // Màu chữ đậm hơn
-//		HELP.setWrapStyleWord(true);
-//		HELP.setLineWrap(true);
 	}
 
 	private void createBar() {
