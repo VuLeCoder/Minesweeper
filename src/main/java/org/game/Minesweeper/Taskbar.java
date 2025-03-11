@@ -22,14 +22,14 @@ public class Taskbar {
         );
     
     private final JPanel bar;
-    private JButton statusPointer;
+    private FancyRoundButton statusPointer;
     private JLabel num;
 
     public Taskbar(Game game) {
     	this.game = game;
     	
         bar = new JPanel();
-        statusPointer = new JButton();
+        statusPointer = new FancyRoundButton();
         createHelp();
         createBar();
     }
@@ -168,12 +168,9 @@ public class Taskbar {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, PADDING, PADDING));
         panel.setBackground(BACKGROUND_COLOR);
 
-        JButton helpButton = new JButton();
+        FancyRoundButton helpButton = new FancyRoundButton();
         helpButton.setPreferredSize(new Dimension(HEIGHT, HEIGHT));
-        helpButton.setMargin(new Insets(0, 0, 0, 0));
         helpButton.setFont(new Font(Global.iconFont, Font.BOLD, Global.fontSize));
-        helpButton.setFocusPainted(false);
-        helpButton.setBorderPainted(false);
         helpButton.setBackground(new Color(252, 222, 190));
         helpButton.setText("❓");
         
